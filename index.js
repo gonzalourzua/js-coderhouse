@@ -1,51 +1,30 @@
 
-//CALCULADORA DE PRECIO POR UNIDAD
-//el usuario debe ingresar el número de unidades que comprará considerando un stock limitado. 
-//El programa debe decir si no hay stock y entregar el precio final en el caso de que hayan unidades suficientes.
 
+//La función principal del programa es la compra de tipos de miel por Kg.
 
-let unidad1 = parseInt(prompt("ingrese la cantidad de producto1 (disponibles: 10u)", 0))
-let unidad2 = parseInt(prompt("ingrese la cantidad de producto2 (disponibles: 5u)", 0))
+/*
+El usuario debe ingresar el tipo de miel y los Kg que necesita y el programa debe
+devolver la info ingresada y el costo total
+ */
 
-// do {
-//     unidad1 = parseInt(prompt("ingresa un número nuevamente"))
-//     unidad2 = parseInt(prompt("ingresa un número nuevamente"))
+const preciosMiel = {
+    tiaca: 4000,
+    ulmo: 5000,
+    quillay: 4500,
+    tevo: 6000,
+    raps: 5500,
+    maqui: 7500
+  };
+  
+  let tipoMiel = prompt("Seleccione el tipo de miel: tiaca, ulmo, quillay, tevo, raps, maqui");
+  let cantidadKg = prompt("Ingrese la cantidad de miel en kilogramos:");
+  
+  let precioPorKg = preciosMiel[tipoMiel];
+  let precioTotal = cantidadKg * precioPorKg;
 
-// } while ((unidad1 <= 0 || unidad2 <= 0 || isNaN(unidad1) || isNaN(unidad2)));
+  console.log("Tipo de miel: " + tipoMiel);
+  console.log("Cantidad: " + cantidadKg + " kg");
+  console.log("Precio total: $" + precioTotal);
 
-const valor1 = 5000
-const valor2 = 2500
-
-total1 = (unidad1 * valor1)
-total2 = (unidad2 * valor2)
-
-console.log(total1)
-console.log(total2)
-
-let precioFinal = (total1 + total2)
-
-console.log("El precio final es: " + precioFinal)
-
-
-if (unidad1 > 10 || unidad2 > 5 || isNaN(unidad1) || isNaN(unidad2)) {
-
-    console.log("la cantidad no es correcta")
-    alert("la cantidad no es correcta")
-
-    unidad1 = parseInt(prompt("ingrese la cantidad de producto1", 0))
-    unidad2 = parseInt(prompt("ingrese la cantidad de producto2", 0))
-
-}else if(unidad1 < 10 || unidad2 < 5){
-    console.log("unidades en el carro de compra: "+precioFinal)
-    alert("el valor total de compra es: " +precioFinal)
-}
-
-
-
-
-
-
-
-
-
-
+  alert("Llevas: " + cantidadKg + " Kg de miel de " + tipoMiel + " por un total de: " + precioTotal)
+  
