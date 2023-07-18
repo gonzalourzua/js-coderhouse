@@ -7,24 +7,24 @@ El usuario debe ingresar el tipo de miel y los Kg que necesita y el programa deb
 devolver la info ingresada y el costo total
  */
 
-const preciosMiel = {
-    tiaca: 4000,
-    ulmo: 5000,
-    quillay: 4500,
-    tevo: 6000,
-    raps: 5500,
-    maqui: 7500
-  };
-  
-  let tipoMiel = prompt("Seleccione el tipo de miel: tiaca, ulmo, quillay, tevo, raps, maqui");
-  let cantidadKg = prompt("Ingrese la cantidad de miel en kilogramos:");
-  
-  let precioPorKg = preciosMiel[tipoMiel];
-  let precioTotal = cantidadKg * precioPorKg;
 
-  console.log("Tipo de miel: " + tipoMiel);
-  console.log("Cantidad: " + cantidadKg + " kg");
-  console.log("Precio total: $" + precioTotal);
+const tipoMiel   = ['tiaca', 'ulmo', 'quillay', 'tevo', 'raps', 'maqui'];
+const precioMiel = [4000, 5000, 4500, 6000, 5500, 7500]; 
 
-  alert("Llevas: " + cantidadKg + " Kg de miel de " + tipoMiel + " por un total de: " + precioTotal)
-  
+console.log(tipoMiel);
+console.log(precioMiel);
+
+let eligeMiel  = prompt('Seleccione el tipo de miel: tiaca, ulmo, quillay, tevo, raps, maqui');
+let kilogramos = parseInt(prompt('Selecciona la cantidad en Kg'));
+
+let indice = tipoMiel.indexOf(eligeMiel);
+
+if (indice !== -1) {
+  let precioTotal = precioMiel[indice] * kilogramos;
+
+  console.log('El precio total de ' + kilogramos + 'Kg de '+ eligeMiel +' es: ' + precioTotal);
+  alert('El precio total de ' + kilogramos + 'Kg de '+ eligeMiel +' es: ' + precioTotal);
+} else {
+  console.log('El tipo de miel no está en stock, seleccione un tipo de miel de la lista.');
+  alert('El tipo de miel no está en stock, seleccione un tipo de miel de la lista.');
+}
