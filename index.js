@@ -1,30 +1,60 @@
 
 
-//La función principal del programa es la compra de tipos de miel por Kg.
 
-/*
-El usuario debe ingresar el tipo de miel y los Kg que necesita y el programa debe
-devolver la info ingresada y el costo total
- */
+const tipoMiel = ['tiaca', 'ulmo', 'quillay', 'tevo', 'raps', 'maqui'];
+const precioMiel = [4000, 5000, 4500, 6000, 5500, 7500];
 
+let carro = JSON.parse(localStorage.getItem('carro')) || [];
 
-const tipoMiel   = ['tiaca', 'ulmo', 'quillay', 'tevo', 'raps', 'maqui'];
-const precioMiel = [4000, 5000, 4500, 6000, 5500, 7500]; 
-
-console.log(tipoMiel);
-console.log(precioMiel);
-
-let eligeMiel  = prompt('Seleccione el tipo de miel: tiaca, ulmo, quillay, tevo, raps, maqui');
-let kilogramos = parseInt(prompt('Selecciona la cantidad en Kg'));
-
-let indice = tipoMiel.indexOf(eligeMiel);
-
-if (indice !== -1) {
-  let precioTotal = precioMiel[indice] * kilogramos;
-
-  console.log('El precio total de ' + kilogramos + 'Kg de '+ eligeMiel +' es: ' + precioTotal);
-  alert('El precio total de ' + kilogramos + 'Kg de '+ eligeMiel +' es: ' + precioTotal);
-} else {
-  console.log('El tipo de miel no está en stock, seleccione un tipo de miel de la lista.');
-  alert('El tipo de miel no está en stock, seleccione un tipo de miel de la lista.');
+function actualizaCarro() {
+    localStorage.setItem('carro', JSON.stringify(carro));
 }
+
+function agregaCarro(eligeMiel, kilogramos) {
+    let indice = tipoMiel.indexOf(eligeMiel);
+
+    if (indice !== -1) {
+        let precioTotal = precioMiel[indice] * kilogramos;
+        const item = {
+            tipoMiel: eligeMiel,
+            kilogramos: kilogramos,
+            precioTotal: precioTotal
+        };
+
+    carro.push(item);
+    actualizaCarro();
+    carroCompra();
+    } else {
+        alert('El tipo de miel no está en stock, seleccione un tipo de miel de la lista.');
+    }
+}
+
+function carroCompra() {
+    const carroItemsElement = document.getElementById('carro-items');
+    const precioTotalElement = document.getElementById('precio-total');
+    carroItemsElement.innerHTML = '';
+    let total = 0;
+
+carro.forEach((item) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${item.tipoMiel} - ${item.kilogramos}Kg - $${item.precioTotal}`;
+    carroItemsElement.appendChild(listItem);
+    total += item.precioTotal;
+});
+
+    precioTotalElement.textContent = `Total: $${total}`;
+}
+
+const agregaCarroButton = document.getElementById('agregaCarro');
+agregaCarroButton.addEventListener('click', () => {
+    const seleccionMiel = document.getElementById('miel').value;
+    const seleccionKilogramos = parseInt(document.getElementById('kilogramos').value);
+
+    if (seleccionKilogramos > 0) {
+        agregaCarro(seleccionMiel, seleccionKilogramos);
+    } else {
+    alert('Ingrese una cantidad válida en Kg');
+    }
+});
+
+carroCompra();
